@@ -1,7 +1,7 @@
 .plateau{ 
     margin:auto;
     display:flex; 
-    justify-content:space-evenly;   
+    /* justify-content:space-evenly;    */
     flex-wrap: wrap;  
      width:630px;
      height:auto;
@@ -9,7 +9,7 @@
 }
 
 .case{
-    margin:5px;     
+    /* margin:5px;      */
     background-color:rgb(190, 126, 89); 
 }
 

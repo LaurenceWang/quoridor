@@ -1,32 +1,19 @@
+for(var y=0; y<17; y++){ 
 
-//  //289 cases
-// //case paire = case pour mettre les murs 
+    for(var i=0; i<17; i++){
+        $(".plateau").append("<div class='case'> </div>")
 
-// var c = document.getElementById("myCanvas");
-// var ctx = c.getContext("2d");
-// ctx.fillRect(20, 20, 150, 100);
-   
-// //    for (var i=0; i<18; i++){
+        if(i%2==0){ 
+         $(".case").eq((y*17)+i).css({"width":"60","height":"60","background-color":"rgb(190, 126, 89)"});
+        }
 
-
-// var largeurPlateau= $(".plateau").width();
-
-// console.log(largeurPlateau);
-
-// //    }
-
-for(var y=0; y<9; y++){ 
-
-for(var i=0; i<9; i++){
-    $(".plateau").append("<div class='case'> </div>")
-}
-
-}
-
-//  $(".case").css("width", $(".plateau").width()/9);
-
-// $(".case").css("height", $(".plateau").width()/9); 
+        else{
+            $(".case").eq((y*17)+i).css({"width":"10","height":"60","background-color":"green"})
+        }
+    }
+     
+    }    
+    
 
 
-$(".case").css({"width":"60","height":"60"});
 
