@@ -1,0 +1,32 @@
+.plateau{ 
+    margin:auto;
+    display:flex; 
+    justify-content:space-evenly;   
+    flex-wrap: wrap;  
+     width:630px;
+     height:auto;
+    /* background-color:black; rgb(190, 126, 89);  */
+}
+
+.case{
+    margin:5px;     
+    background-color:rgb(190, 126, 89); 
+}
+
+.joueurUn{
+
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color:rgb(238, 85, 85);
+}
+
+.joueurDeux{
+
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color:rgb(85, 195, 238);
+}
