@@ -61,38 +61,38 @@ for (let y = 0; y < 19; y++) {
 $(".case").on("click", function () {
 if($(".pion1").hasClass('active')){
     $(".pion1").removeClass('pion1');
-    $("pion1").removeClass('active')
-    $("pion2").addClass('active');
+    $(".pion1").removeClass('active')
+    $(".pion2").addClass('active');
     $(this).addClass('pion1');
 
 }
 
-if($(".pion2").hasClass('active')){
-    $(".pion2").removeClass('pion1');
-    $("pion2").removeClass('active')
+else if($(".pion2").hasClass('active')){
+    $(".pion2").removeClass('pion2');
+    $(".pion2").removeClass('active');
+    $(".pion1").addClass('active');
     $(this).addClass('pion2');
-
 }
 });
 
-// $(".case").on("click", function () {
-//     if($(".pion2").hasClass('active')){
-//         $(".pion2").removeClass('pion1');
-//         $("pion2").removeClass('active')
-//         $(this).addClass('pion2');
+//  $(".case").on("click", function () {
+//      if($(".pion2").hasClass('active')){
+//          $(".pion2").removeClass('pion2');
+//          $("pion2").removeClass('active')
+//          $(this).addClass('pion2');
     
 //     }
-//     });
+//      });
 
 $("#case77").addClass('pion1');
 $("#case77").addClass('active');
 $("#case5").addClass('pion2');
 
 
-if ($(".rectangle").hasClass('pion2')) {
+// if ($(".rectangle").hasClass('pion2')) {
 
-    $(".pion2").css({
-        "background-color": "rgb(85, 195, 238)"
-    });
+//     $(".pion2").css({
+//         "background-color": "rgb(85, 195, 238)"
+//     });
 
-}
+// }
