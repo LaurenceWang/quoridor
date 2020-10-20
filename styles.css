@@ -1,16 +1,24 @@
+
 .plateau{ 
+     background-color:rgb(190, 126, 89); 
     margin:auto;
     display:flex; 
     /* justify-content:space-evenly;    */
     flex-wrap: wrap;  
-     width:630px;
+     width:620px;
      height:auto;
+     position:relative;
     /* background-color:black; rgb(190, 126, 89);  */
 }
 
-.case{
+.rectangle{
     /* margin:5px;      */
-    background-color:rgb(190, 126, 89); 
+    /* background-color:rgb(190, 126, 89); 
+    position:relative; */
+}
+
+.case {
+    background-color:rgb(190, 126, 89);
 }
 
 .joueurUn{
@@ -19,14 +27,37 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color:rgb(238, 85, 85);
+    background-color:rgb(255, 52, 52);
+    position: absolute;
+    top: 580px;
+    left: 290px;
+    z-index: 2;
 }
 
 .joueurDeux{
-
+    
     display: inline-block;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-color:rgb(85, 195, 238);
+    position:absolute;
+    top:20px;
+    left:290px;
+    z-index:2;
 }
+
+.pion1{
+   
+    border-radius: 50%;
+    background-color: rgb(255, 52, 52);
+}
+
+.pion2{
+    border-radius: 50%;
+    background-color: rgb(85, 195, 238);
+}
+
+/* .active {
+    opacity:50%;
+} */
