@@ -21,6 +21,10 @@
     background-color:rgb(190, 126, 89);
 }
 
+.mur {
+    background-color: green;
+}
+
 .joueurUn{
 
     display: inline-block;
@@ -47,6 +51,12 @@
     z-index:2;
 }
 
+.pionShadow{ 
+    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
+    opacity: 20%;
+}
+
 .pion1{
    
     border-radius: 50%;
@@ -57,6 +67,12 @@
     border-radius: 50%;
     background-color: rgb(85, 195, 238);
 }
+
+.murSolid{
+
+    background-color: rgb(144, 194, 144);
+}
+
 
 /* .active {
     opacity:50%;
