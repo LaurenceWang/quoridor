@@ -10,7 +10,7 @@ for (let y = 0; y < 19; y++) {
 
         if (y % 2 == 0) {
             //    $(".plateau").append(`<div class='case' id="mur${i+(17*y)-(9*y)}"> </div>`)
-            $(".plateau").append(`<div class='rectangle mur' id="mur${m}" data-mgauche=${m-1}  data-mdroite=${m+1}  data-mhaut=${m-9}  data-mbas=${m+9}> </div>`)
+            $(".plateau").append(`<div class='rectangle mur horizontal' id="mur${m}" data-mgauche=${m-1}  data-mdroite=${m+1}  data-mhaut=${m-25}  data-mbas=${m+25}> </div>`)
             m = m + 1;
 
             if (i % 2 == 0) {
@@ -42,7 +42,7 @@ for (let y = 0; y < 19; y++) {
                 });
 
             } else {
-                $(".plateau").append(`<div class='rectangle mur' id="mur${m}"> </div>`)
+                $(".plateau").append(`<div class='rectangle mur vertical' id="mur${m}" data-mgauche=${m-1}  data-mdroite=${m+1}  data-mhaut=${m-25}  data-mbas=${m+25}> </div>`)
                 m = m + 1;
                 $(".rectangle").eq((y * 17) + i).css({
                     "width": "10",
@@ -60,6 +60,7 @@ for (let y = 0; y < 19; y++) {
 
 
 let voisin = [];
+let mvoisin=[];
 
 $("#76").addClass('jouable');
 $("#78").addClass('jouable');
@@ -114,6 +115,63 @@ $("#5").addClass('pion2');
 
 
 $(".mur").on("click", function(){
-    $(this).addClass("murSolid");
+$(".jouable").removeClass('pionShadow');
+$(".jouable").removeClass('jouable');
+    mvoisin = [$(this).attr("data-mgauche"),$(this).attr("data-mhaut"), $(this).attr("data-mdroite"),$(this).attr("data-mbas"),];
+
+
+    if($(this).hasClass("horizontal") && $(".pion1").hasClass("active")){
+        $(this).addClass("murSolid");
+        $("#mur" + mvoisin[2]).addClass("murSolid");
+        let prochainHmur = $("#mur" + mvoisin[2]).attr("data-mdroite");
+        $("#mur" + prochainHmur ).addClass("murSolid");
+
+          $(".pion1").removeClass("active");
+        $(".pion2").addClass("active");
+      
+       
+    }
+
+    else if($(this).hasClass("horizontal") && $(".pion2").hasClass("active")){
+        $(this).addClass("murSolid");
+        $("#mur" + mvoisin[2]).addClass("murSolid");
+        let prochainHmur = $("#mur" + mvoisin[2]).attr("data-mdroite");
+        $("#mur" + prochainHmur ).addClass("murSolid");
+
+        $(".pion2").removeClass("active");
+        $(".pion1").addClass("active");
+      
+       
+    }
+
+    else if($(this).hasClass("vertical") && $(".pion1").hasClass("active")){
+
+        $(this).addClass("murSolid");
+         $("#mur" + mvoisin[3]).addClass("murSolid");
+         
+        //  let prochainVMur = $("#mur" + mvoisin[3]).attr("data-mbas");
+        //  $("#mur" + prochainVMur ).addClass("murSolid");
+        $(".pion1").removeClass("active");
+        $(".pion2").addClass("active");
+    }
+
+    else if($(this).hasClass("vertical") && $(".pion2").hasClass("active")){
+
+        $(this).addClass("murSolid");
+         $("#mur" + mvoisin[3]).addClass("murSolid");
+         
+        //  let prochainVMur = $("#mur" + mvoisin[3]).attr("data-mbas");
+        //  $("#mur" + prochainVMur ).addClass("murSolid");
+        $(".pion2").removeClass("active");
+        $(".pion1").addClass("active");
+    }
+
+    
+        voisin = [$(".active").attr("data-vgauche"),$(".active").attr("data-vhaut"), $(".active").attr("data-vdroite"),$(".active").attr("data-vbas")];
+        $("#"+voisin[0]).addClass('jouable');
+        $("#"+voisin[1]).addClass('jouable');
+         $("#"+voisin[2]).addClass('jouable');
+        $("#"+voisin[3]).addClass('jouable');
+        $(".jouable").addClass("pionShadow");
 
 });
