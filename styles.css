@@ -18,8 +18,7 @@ body {
    margin:auto;
    display:flex; 
    flex-wrap: wrap;  
-    width:700px;
-    margin-bottom: 30px;
+    width:620px;
     height:auto;
     position:relative;
 }
@@ -29,8 +28,7 @@ body {
    margin:auto;
    display:flex; 
    flex-wrap: wrap;  
-    width:700px;
-    margin-top: 30px;
+    width:620px;
     height:auto;
     position:relative;
 }
@@ -98,13 +96,5 @@ body {
 
 
 /* .active {
-    opacity:50%{
-
+    opacity:50%;
 } */
-.murStorage{
-    background-color: white;
-}
-
-.rectangleStorage{
-    background-color: rgb(92, 39, 3);
-}
