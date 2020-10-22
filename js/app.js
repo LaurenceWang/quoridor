@@ -61,6 +61,69 @@ for (let y = 0; y < 19; y++) {
 
 }
 
+for (let a = 0; a < 17; a++) {
+
+
+
+    $(".storageUn").append(`<div class='murStoragej1 rectanglej1'></div>`)
+
+    if (a % 2 == 0) {
+
+        $(".murStoragej1").eq(a).css({
+            "width": "70",
+            "height": "130",
+
+        });
+
+    } else {
+
+        $(".rectanglej1").eq(a).css({
+            "width": "10",
+            "height": "130",
+
+        })
+
+        $(".rectanglej1").eq(a).addClass("murj1");
+
+    }
+
+    
+    
+}
+
+
+for (let b = 0; b < 17; b++) {
+
+
+
+    $(".storageDeux").append(`<div class='murStoragej2 rectanglej2'></div>`)
+
+    if (b % 2 == 0) {
+
+        $(".murStoragej2").eq(b).css({
+            "width": "70",
+            "height": "130",
+
+        });
+
+    } else {
+
+        $(".rectanglej2").eq(b).css({
+            "width": "10",
+            "height": "130",
+
+        })
+
+        $(".rectanglej2").eq(b).addClass("murj1");
+
+    }
+
+    
+    
+}
+
+
+
 
 
 let voisin = [];

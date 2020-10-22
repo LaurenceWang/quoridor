@@ -11,11 +11,11 @@
     /* background-color:black; rgb(190, 126, 89);  */
 }
 
-.rectangle{
-    /* margin:5px;      */
-    /* background-color:rgb(190, 126, 89); 
-    position:relative; */
-}
+/*.rectangle{
+     margin:5px;      
+     background-color:rgb(190, 126, 89); 
+    position:relative; 
+}*/
 
 .case {
     background-color:rgb(190, 126, 89);
@@ -71,6 +71,43 @@
 .murSolid{
 
     background-color: rgb(144, 194, 144);
+}
+
+.murStoragej1{
+    background-color: rgb(190, 126, 89);
+}
+
+.murStoragej2{
+    background-color: rgb(190, 126, 89);
+}
+
+.storageUn{
+    background-color:rgb(190, 126, 89); 
+    margin:auto;
+    display:flex; 
+    flex-wrap: wrap;  
+     width:710px;
+     /* height:auto; */
+     position:relative;
+     margin-bottom: 30px;
+     border: solid 10px brown;
+     
+
+}
+
+.storageDeux{
+    background-color:rgb(190, 126, 89); 
+    margin:auto;
+    display:flex; 
+    flex-wrap: wrap;  
+     width:710px;
+     position:relative;
+     margin-top: 30px;
+     border: solid 10px brown;
+}
+
+.murj1{
+    background-color:rgb(144, 194, 144);
 }
 
 
