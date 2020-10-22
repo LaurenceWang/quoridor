@@ -1,4 +1,6 @@
-
+body {
+    background-color: rgb(107, 107, 107);
+}
 .plateau{ 
      background-color:rgb(190, 126, 89); 
     margin:auto;
@@ -11,18 +13,37 @@
     /* background-color:black; rgb(190, 126, 89);  */
 }
 
-.rectangle{
-    /* margin:5px;      */
-    /* background-color:rgb(190, 126, 89); 
-    position:relative; */
+.storageUn{ 
+    background-color:rgb(190, 126, 89); 
+   margin:auto;
+   display:flex; 
+   flex-wrap: wrap;  
+    width:620px;
+    height:auto;
+    position:relative;
 }
 
+.storageDeux{ 
+    background-color:rgb(190, 126, 89); 
+   margin:auto;
+   display:flex; 
+   flex-wrap: wrap;  
+    width:620px;
+    height:auto;
+    position:relative;
+}
+/*.rectangle{
+     margin:5px;      */
+    /* background-color:rgb(190, 126, 89); 
+    position:relative; 
+}*/
+
 .case {
-    background-color:rgb(190, 126, 89);
+    background-color:rgb(92, 39, 3);
 }
 
 .mur {
-    background-color: green;
+    background-color: rgb(255, 255, 255);
 }
 
 .joueurUn{
@@ -70,7 +91,7 @@
 
 .murSolid{
 
-    background-color: rgb(144, 194, 144);
+    background-color: rgb(61, 209, 61);
 }
 
 
