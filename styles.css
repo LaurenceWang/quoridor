@@ -34,7 +34,7 @@ body {
 
 .pion2 {
     border-radius: 50%;
-    background-color: rgb(144, 194, 144);
+    background-color: rgb(144, 194, 144)
 }
 
 .murSolid {
@@ -77,3 +77,7 @@ body {
     background-color: #b4b4b4;
 }
 
+.hover { 
+    background-color: #a1b8f8;
+
+}
