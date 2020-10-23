@@ -29,12 +29,12 @@ body {
 .pion1 {
 
     border-radius: 50%;
-    background-color: #c04f55
+    background-color: #c04f55;
 }
 
 .pion2 {
     border-radius: 50%;
-    background-color: rgb(144, 194, 144)
+    background-color: rgb(144, 194, 144);
 }
 
 .murSolid {
