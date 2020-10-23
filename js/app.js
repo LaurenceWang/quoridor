@@ -153,7 +153,7 @@ $("#68").addClass('jouable');
 //visibilité des pions jouables
 $(".jouable").addClass("pionShadow");
 
-//évènement clicksur une case
+//évènement click sur une case
 $("body").on("click", ".jouable", function () {
 
     //suppression des classes jouables qui seront rajoutées à nouveau en fonction de la case du joueur actif
@@ -237,13 +237,14 @@ $("body").on("click", ".libre", function () {
         $(this).removeClass("libre"); //mur cliqué n'est plus libre
         let prochainHmur = $("#mur" + mvoisin[2]).attr("data-mdroite"); //prochain mur horizontal
         let precedentHmur = $("#mur" + mvoisin[0]).attr("data-mgauche") //précédent mur horizontal
+
         //impossible de placer un mur au bord droit du plateau
         if (!($(this).attr("data-numero") % 25 == 0)) {
             $(this).addClass("murSolid"); //mur cliqué est placé
             $("#mur" + mvoisin[2]).addClass("murSolid"); //intersection placé
             $("#mur" + prochainHmur).addClass("murSolid"); //prochain mur horizontal place  
             $("#mur" + precedentHmur).removeClass("libre"); //précédent mur horizontal ne peut pas être cliqué
-            $("#mur" + prochainHmur).removeClass("libre");  
+            $("#mur" + prochainHmur).removeClass("libre");
 
             //changement de joueur actif
             $(".pion1").removeClass("active");
