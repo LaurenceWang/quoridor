@@ -4,6 +4,11 @@ let s1 = 1; //compteur mur storage joueur 1
 let s2 = 1; //compteur mur storage joueur 2 
 let compteurS1 = 1; //compteur murs utilisés joueur 1
 let compteurS2 = 1; //compteur murs utilisés joueur 2
+let scoreR = 0; //score joueur rouge
+let scoreG = 0; //score joueur vert
+let winner = ''; //couleur du gagnant
+
+$(".winModal").hide();
 
 //Création du plateau
 
@@ -22,7 +27,7 @@ function plateau() {
                 if (i % 2 == 0) {
 
                     //création de cases
-                    $(".plateau").append(`<div class='rectangle case' id="${c}" data-vgauche=${c-1} data-vdroite=${c+1} data-vhaut=${c-9} data-vbas=${c+9} data-vmurGauche=${m-1} data-vmurDroite=${m} data-vmurHaut=${m- (murRestant)*2 - (8 - murRestant + 1) } data-vmurBas=${m + murRestant + (8 - murRestant) *2}> </div>`)
+                    $(".plateau").append(`<div class='rectangle case' id="${c}" data-vgauche=${c-1} data-vdroite=${c+1} data-vhaut=${c-9} data-vbas=${c+9} data-vmurGauche=${m-1} data-vmurDroite=${m} data-vmurHaut=${m- (murRestant)*2 - (8 - murRestant + 1) } data-vmurBas=${m + murRestant + (8 - murRestant) *2} data-unvisited='true'> </div>`)
                     c = c + 1;
                     $(".rectangle").eq((y * 17) + i).css({
                         "width": "60",
@@ -65,7 +70,8 @@ function plateau() {
                     });
 
                     //rendre les intersections non cliquables
-                    $(".rectangle").eq((y * 17) + i).removeClass("libre")
+                    $(".rectangle").eq((y * 17) + i).removeClass("libre");
+                    $(".rectangle").eq((y * 17) + i).addClass("intersection");
 
                 }
             }
@@ -124,19 +130,7 @@ let voisin = []; //cases voisines du joueur actif
 let mvoisin = []; //voisins des murs cliqués
 let voisinMur = []; //murs voisins du joueur actif
 
-//configuration initiale 
-$("#77").addClass('pion1 pion'); //placement du joueur 1
-$("#77").addClass('active'); //joueur 1 actif
-$("#5").addClass('pion2 pion'); //placement du joueur 2
-
-//voisins du joueur 1 jouables
-$("#76").addClass('jouable');
-$("#78").addClass('jouable');
-$("#68").addClass('jouable');
-
-//visibilité des pions jouables
-$(".jouable").addClass("pionShadow");
-
+initialState(); //initialisation du jeu
 
 //détermination du tour 
 function actif(j) {
@@ -172,34 +166,64 @@ $("body").on("click", ".jouable", function () {
     caseJouable();
     caseInjouable();
     saut();
-
     $(".jouable").addClass("pionShadow"); //ajout d'ombres sur les cases jouables 
+
+    $(".case").attr('data-unvisited', 'true'); //réinitialisation des data-unvisited
+    parcoursProfondeur($('.active').attr('id'));
+
+    //non-blocage
+    //if (parcoursProfondeur) {
+   
+    //} else if (!parcoursProfondeur) {
+        
+    //}
 
     //déclaration des gagnants lorsqu'ils atteignent leur bout respectif du plateau
     if ($(".pion1").attr("id") < 10) {
-        alert("Le joueur rouge a gagné la partie !")
-        stopJeu();
+
+        scoreR++;
+        initialState();
+        declareWinner();
+
     } else if ($(".pion2").attr("id") > 72) {
-        alert("Le joueur vert a gagné la partie !")
-        stopJeu();
+        scoreG++;
+
+        initialState();
+        declareWinner();
+
     }
 
 });
 
+//fenêtre modale 
+$('.play').on("click", function () {
+    $(".winModal").hide();
+})
 
-$(".libre").hover(
+
+//jouer une nouvelle partie (réinitialisation des scores)
+$('.restart').on("click", function () {
+    $(".winModal").hide();
+    scoreR = 0;
+    scoreG = 0;
+    $('.redScore').text(scoreR);
+    $('.greenScore').text(scoreG);
+
+})
+
+$(".mur").hover(
 
     function () {
 
         mvoisin = [$(this).attr("data-mgauche"), $(this).attr("data-mhaut"), $(this).attr("data-mdroite"), $(this).attr("data-mbas"), ];
 
-        if ($(this).hasClass("horizontal") && !($(this).attr("data-numero") % 25 == 0)) {
+        if ($(this).hasClass("horizontal") && !($(this).attr("data-numero") % 25 == 0) && $(this).hasClass("libre")) {
 
             $(this).addClass("hover");
             let prochainHmur = $("#mur" + mvoisin[2]).attr("data-mdroite");
             $("#mur" + mvoisin[2]).addClass("hover");
             $("#mur" + prochainHmur).addClass("hover");
-        } else if ($(this).hasClass("vertical") && $(this).attr("data-numero") < 201) {
+        } else if ($(this).hasClass("vertical") && $(this).attr("data-numero") < 201 && $(this).hasClass("libre")) {
             let prochainInter = $(this).attr("data-intersectionBas");
             $(this).addClass("hover");
             $("#mur" + prochainInter).addClass("hover");
@@ -210,6 +234,7 @@ $(".libre").hover(
     function () {
         $(".horizontal").removeClass("hover");
         $(".vertical").removeClass("hover");
+
     }
 );
 
@@ -271,7 +296,7 @@ $("body").on("click", ".libre", function () {
             $("#mur" + prochainInter).addClass("murSolid");
             murVertical();
             $("#mur" + interVgauche).removeClass("libre"); //pas de chevauchement entre les murs horizontaux et verticaux
-            
+
 
             actif("pion2");
 
@@ -298,8 +323,9 @@ $("body").on("click", ".libre", function () {
     caseJouable();
     caseInjouable();
     saut();
-
     $(".jouable").addClass("pionShadow");
+    $(".case").attr('data-unvisited', 'true');
+    parcoursProfondeur($('.active').attr('id'));
 
 });
 
@@ -337,23 +363,26 @@ function caseJouable() {
 
 //saut lorsque les pions sont à côté 
 function saut() {
-    if ($("#" + voisin[0]).hasClass('pion') && !(($("#" + voisin[0]).attr("id") - 1) % 9 == 0)) {
+
+
+    if ($("#" + voisin[0]).hasClass('pion') && !(($("#" + voisin[0]).attr("id") - 1) % 9 == 0) && !($("#mur" + voisinMur[0]).hasClass("murSolid"))) {
         //voisin gauche du pion adverse
         let vgaucheAdv = $("#" + voisin[0]).attr("data-vgauche");
         $("#" + vgaucheAdv).addClass("jouable");
-    };
+    }
 
-    if ($("#" + voisin[1]).hasClass('pion')) {
+
+    if ($("#" + voisin[1]).hasClass('pion') && !$("#mur" + voisinMur[1]).hasClass("murSolid")) {
         let vhautAdv = $("#" + voisin[1]).attr("data-vhaut");
         $("#" + vhautAdv).addClass("jouable");
     };
 
-    if ($("#" + voisin[2]).hasClass('pion') && !($("#" + voisin[2]).attr("id") % 9 == 0)) {
+    if ($("#" + voisin[2]).hasClass('pion') && !($("#" + voisin[2]).attr("id") % 9 == 0) && !$("#mur" + voisinMur[2]).hasClass("murSolid")) {
         let vdroitAdv = $("#" + voisin[2]).attr("data-vdroite");
         $("#" + vdroitAdv).addClass("jouable");
     };
 
-    if ($("#" + voisin[3]).hasClass('pion')) {
+    if ($("#" + voisin[3]).hasClass('pion') && !$("#mur" + voisinMur[3]).hasClass("murSolid")) {
         let vbasAdv = $("#" + voisin[3]).attr("data-vbas");
         $("#" + vbasAdv).addClass("jouable");
     };
@@ -371,12 +400,12 @@ function murHorizontal() {
     $("#mur" + mvoisin[2]).addClass("murSolid");
     $("#mur" + prochainHmur).addClass("murSolid");
     //impossible de cliquer sur les murs adjacents au mur cliqué
-    $("#mur" + precedentHmur).removeClass("libre");  
+    $("#mur" + precedentHmur).removeClass("libre");
     $("#mur" + prochainHmur).removeClass("libre");
 
 }
 
-function murVertical(){
+function murVertical() {
     $("#mur" + mvoisin[3]).addClass("murSolid"); //prochain mur vertical solide 
     $("#mur" + mvoisin[3]).removeClass("libre"); //impossible de cliquer sur les murs adjacents au mur cliqué 
     $("#mur" + mvoisin[1]).removeClass("libre");
@@ -389,11 +418,70 @@ function murDisparait(murNum, compteurNum) {
     });
 }
 
+function initialState() {
+
+    //initialisation de l'état
+    $(".case").removeClass("pion");
+    $(".case").removeClass("pion1");
+    $(".case").removeClass("pion2");
+    $(".case").removeClass('jouable');
+    $(".case").removeClass("pionShadow");
+    $(".murSolid").addClass("libre");
+    $(".intersection").removeClass("libre");
+    $(".mur").removeClass("murSolid");
 
 
-//On ne peut plus jouer quand il y a un gagnant
-function stopJeu() {
+    $("#77").addClass('pion1 pion'); //placement du joueur 1
+    $("#77").addClass('active'); //joueur 1 actif
+    $("#5").addClass('pion2 pion'); //placement du joueur 2
 
-    $(".case").removeClass("jouable");
-    $(".mur").removeClass("libre");
+    //voisins du joueur 1 jouables
+    $("#76").addClass('jouable');
+    $("#78").addClass('jouable');
+    $("#68").addClass('jouable');
+    $(".jouable").addClass("pionShadow");
+}
+
+
+function declareWinner() {
+
+
+    $('.redScore').text(scoreR);
+    $('.greenScore').text(scoreG);
+    $(".winModal").show();
+    $(".winModal").addClass("slide-top");
+    $('.winnerColor').text(winner);
+
+
+}
+
+//Non-blocage des murs
+function parcoursProfondeur(id) {
+
+    let caseVoisine;
+    let murVoisin;
+
+    if ($("#" + id).attr("data-unvisited") == 'true') {
+
+        caseVoisine = [$("#" + id).attr("data-vgauche"), $("#" + id).attr("data-vhaut"), $("#" + id).attr("data-vdroite"), $("#" + id).attr("data-vbas")];
+        murVoisin = [$("#" + id).attr("data-vmurGauche"), $("#" + id).attr("data-vmurHaut"), $("#" + id).attr("data-vmurDroite"), $("#" + id).attr("data-vmurBas")];
+
+        $("#" + id).attr('data-unvisited', 'false');
+        for (let i = 0; i < caseVoisine.length; i++) {
+
+            parcoursProfondeur(caseVoisine[i]);
+
+            if ($("#" + murVoisin[i]).hasClass('murSolid')) {
+                $("#" + caseVoisine[i]).attr('data-unvisited', 'false');
+            }
+
+            if ((caseVoisine[1] < 3 || caseVoisine[1] > 72) && (caseVoisine[3] < 3 || caseVoisine[3] > 72)) {
+                return true;
+            } else {
+                return false
+            }
+
+        }
+    }
+    return true;
 }
